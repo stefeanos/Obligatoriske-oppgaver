@@ -1,0 +1,155 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>QUnit Example</title>
+    <link
+      rel="stylesheet"
+      href="https://code.jquery.com/qunit/qunit-2.9.2.css"
+    />
+  </head>
+
+  <body>
+    <div id="qunit"></div>
+    <div id="qunit-fixture"></div>
+    <script src="https://code.jquery.com/qunit/qunit-2.9.2.js"></script>
+     <script src="model.js"></script>
+    <script src="controller.js"></script>
+   
+    
+    <script>
+const Content = () => {
+  return {
+    inputValue: "",
+    chosenBar: null,
+    numbers: [7, 8, 2, 5, 3],
+    errorMessage: null,
+    showView: function () {
+      this.showViewHasBeenCalled = true;
+    },
+  };
+};
+
+QUnit.test("select one that is not selected", function (assert) {
+  let content = Content();
+  selectBar(2, content);
+  assert.equal(content.chosenBar, 2);
+});
+
+QUnit.test("select the one selected from before", function (assert) {
+  let content = Content();
+  content.chosenBar = 2;
+  selectBar(2, content);
+  assert.equal(content.chosenBar, null);
+});
+
+QUnit.test("add new bar ", function (assert) {
+  let content = Content();
+  content.inputValue = 7;
+  add(content);
+  assert.equal(content.numbers.length, 6);
+});
+
+QUnit.test("add new bar - without numbers", function (assert) {
+  let content = Content();
+  content.inputValue = null;
+  add(content);
+  assert.equal(content.numbers.length, 6);
+  assert.ok( content.showViewHasBeenCalled,);
+});
+
+QUnit.test("add new bar - over 8", function (assert) {
+  let content = Content();
+  content.inputValue = 20;
+  add(content);assert.equal( content.errorMessage,
+    "Can only add a bar with a value of 1 to 10");
+  assert.equal(content.numbers.length, 6);
+});
+
+QUnit.test("change bar", function (assert) {
+  let content = Content();
+  content.inputValue = 2;
+  content.chosenBar = 1;
+  edit(content); assert.equal(content.numbers[0], 2);
+});
+
+QUnit.test("change bar - no value", function (assert) {
+  let content = Content();
+  content.currentNumber = null;
+  content.inputValue = 1;
+edit(content);assert.equal(content.numbers[0], 7);
+});
+
+QUnit.test("change bar - without selected bar", function (assert) {
+  let content = Content();
+  content.content = 2;
+  content.inputValue = null;
+  edit(content);assert.equal(content.numbers.join(), "7,8,2,5,3");
+});
+
+QUnit.test("delete bar", function (assert) {
+  let content = Content();
+  content.inputValue = 1;
+  remove(content);assert.equal(content.numbers.length, 5);
+});
+
+QUnit.test("delete bar - without selected bar", function (assert) {
+  let content = Content();
+  content.inputValue = null;
+  remove(content);assert.equal(content.numbers.join(), "7,8,2,5,3");
+});
+
+
+QUnit.test("chosenBar", function (assert) {
+  let chosenBar = null;
+  actual = chosenBar;
+  expected = null;
+ assert.equal(actual, expected, null,);
+});
+
+QUnit.test("errorMessage", function (assert) {
+  let errorMessage = null;
+  let actual = errorMessage;
+  let expected = null;
+  assert.equal(actual, expected, "errorMessage");
+});
+
+QUnit.test("numbers", function (assert) {
+  let numbers = [7, 8, 2, 5, 3];
+  let actual = numbers[(7, 8, 2, 5, 3)];
+  let expected = 5;
+  assert.equal(actual, expected, "numbers");
+});
+
+QUnit.test("inputValue", function (assert) {
+  let inputValue = "";
+  let actual = inputValue;
+  let expected = "";
+  assert.equal(actual, expected, "inputValue");
+});
+
+QUnit.test("showViwe", function (assert) {
+  let showView = null;
+  let actual = showView;
+  let expected = null;
+  assert.equal(actual, expected, true, showView);
+});
+
+QUnit.test("there is nothing to chose disable", function (assert) {
+  disabled = null ? "disabled" : "";
+  let actual = "";
+  let expected = disabled;
+  assert.equal(actual, expected, true, disabled);
+});
+
+QUnit.test("there is nothing to chose disable", function (assert) {
+  let content = Content();
+  content.chosenBar = null;
+  disabled = "disabled";
+  assert.equal(content.disabled, null);
+});   
+
+    </script>
+  </body>
+</html>
