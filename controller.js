@@ -10,7 +10,7 @@ function selectBar(barNo, content) {
 }
 
 function add(content) {
-    if (!(valueIsValid(content) || hasRoomForAnotherBar(content))) {
+    if (!(valueIsValid(content) && hasRoomForAnotherBar(content))) {
 
     } else {
         content.numbers.push(content.inputValue);
@@ -54,11 +54,11 @@ function valueIsValid(content) {
 }
 
 function hasRoomForAnotherBar(content) {
-    let isValid = content.numbers.length <= 7;
+    let isValid = content.numbers.length <= 9;
     if (isValid) {
 
     } else {
-        content.errorMessage = "Cannot have more than 8 bars at a time";
+        content.errorMessage = "Cannot have more than 10 bars at a time";
     }
     return isValid;
 }
