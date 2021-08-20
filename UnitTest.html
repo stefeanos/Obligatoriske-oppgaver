@@ -55,7 +55,7 @@ QUnit.test("add new bar - without numbers", function (assert) {
   let content = Content();
   content.inputValue = null;
   add(content);
-  assert.equal(content.numbers.length, 5);
+  assert.equal(content.numbers.length, 6);
   assert.ok( content.showViewHasBeenCalled,);
 });
 
@@ -64,7 +64,7 @@ QUnit.test("add new bar - over 8", function (assert) {
   content.inputValue = 20;
   add(content);assert.equal( content.errorMessage,
     "Can only add a bar with a value of 1 to 10");
-  assert.equal(content.numbers.length, 5);
+  assert.equal(content.numbers.length, 6);
 });
 
 QUnit.test("change bar", function (assert) {
